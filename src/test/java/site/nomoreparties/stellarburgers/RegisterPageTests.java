@@ -1,6 +1,7 @@
 package site.nomoreparties.stellarburgers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class RegisterPageTests {
     }
 
     @Test
+    @DisplayName("Успешная регистрация с валидными данными")
     public void checkRegisterWithValidDataSuccess() {
         RegisterPage objRegisterPage = new RegisterPage(driver);
         objRegisterPage.openRegisterPage();
@@ -46,8 +48,7 @@ public class RegisterPageTests {
         objRegisterPage.fillRegisterForm(user);
         objRegisterPage.clickRegisterButton();
 
-        LoginPage objLoginPage = new LoginPage(driver);
-        String expectedUrl = objLoginPage.getUrlLoginPage();
+        String expectedUrl = objRegisterPage.getRegisterUrl();
         String actualUrl = driver.getCurrentUrl();
         assertEquals(expectedUrl, actualUrl);
 
@@ -55,6 +56,7 @@ public class RegisterPageTests {
     }
 
     @Test
+    @DisplayName("Ошибка при регистрации с невалидными данными")
     public void checkRegisterWithInvalidDataFailed() {
         RegisterPage objRegisterPage = new RegisterPage(driver);
         objRegisterPage.openRegisterPage();

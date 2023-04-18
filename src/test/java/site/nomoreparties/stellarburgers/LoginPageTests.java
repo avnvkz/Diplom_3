@@ -1,6 +1,7 @@
 package site.nomoreparties.stellarburgers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,16 +27,17 @@ public class LoginPageTests {
         userClient = new UserClient();
     }
 
-    /*@After
+    @After
     public void teardown() {
         driver.quit();
 
         if(accessToken != null) {
             userClient.deleteUser(accessToken);
         }
-    }*/
+    }
 
     @Test
+    @DisplayName("Успешный вход с валидными данными")
     public void checkLoginWithValidDataSuccess() {
         User user = UserGenerator.getRandom();
         accessToken = userClient.createUser(user);
@@ -53,6 +55,7 @@ public class LoginPageTests {
     }
 
     @Test
+    @DisplayName("Ошибка при входе с невалидными данными")
     public void checkLoginWithInvalidDataFailed() {
         User user = UserGenerator.getRandom();
 

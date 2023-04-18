@@ -1,6 +1,7 @@
 package site.nomoreparties.stellarburgers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class PersonalAccountTest {
     }
 
     @Test
+    @DisplayName("Открытие страницы личного кабинета после входа")
     public void checkOpenPersonalAccountPageAfterLoginSuccess() {
         User user = UserGenerator.getRandom();
         accessToken = userClient.createUser(user);
@@ -58,6 +60,7 @@ public class PersonalAccountTest {
     }
 
     @Test
+    @DisplayName("Открытие главной странице при клике на конопку 'Конструктор'")
     public void checkOpenMainPageClickConstructorButton() {
         User user = UserGenerator.getRandom();
         accessToken = userClient.createUser(user);
@@ -79,6 +82,7 @@ public class PersonalAccountTest {
     }
 
     @Test
+    @DisplayName("Открытие главной страницы при нажатии на кнопку с логотипом 'Stellar-burgers'")
     public void checkOpenMainPageClickLogoButton() {
         User user = UserGenerator.getRandom();
         accessToken = userClient.createUser(user);
@@ -99,6 +103,7 @@ public class PersonalAccountTest {
     }
 
     @Test
+    @DisplayName("Успешный выход из аккаунта при нажатии на кнопку 'Выход'")
     public void checkLogoutFromPersonalAccountPageSuccess() {
         User user = UserGenerator.getRandom();
         accessToken = userClient.createUser(user);
@@ -114,8 +119,9 @@ public class PersonalAccountTest {
         PersonalAccountPage objPersonalAccountPage = new PersonalAccountPage(driver);
         objPersonalAccountPage.waitLoadPersonalAccountPage();
         objPersonalAccountPage.clickLogoutButton();
+        objLoginPage.waitLoadLoginPage();
 
-        String expectedUrl = objPersonalAccountPage.getUrlPersonalAccountPage();
+        String expectedUrl = objLoginPage.getUrlLoginPage();
         String actualUrl = driver.getCurrentUrl();
         assertEquals(expectedUrl, actualUrl);
     }
